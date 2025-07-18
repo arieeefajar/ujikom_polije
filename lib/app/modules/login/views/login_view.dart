@@ -64,7 +64,7 @@ class LoginView extends GetView<LoginController> {
                           borderSide: BorderSide(color: Colors.blue),
                         ),
                       ),
-                      validator: controller.validateUsername,
+                      validator: controller.validateEmail,
                     ),
                     SizedBox(height: 20),
                     Obx(
@@ -113,42 +113,39 @@ class LoginView extends GetView<LoginController> {
                       ),
                     ),
                     SizedBox(height: 24),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: Obx(
-                          () => ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue,
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              elevation: 2,
-                            ),
-                            child: controller.isLoading.value
-                                ? SizedBox(
-                                    height: 20,
-                                    width: 20,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.white,
-                                      ),
-                                      strokeWidth: 2,
-                                    ),
-                                  )
-                                : Text(
-                                    'Login',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
+                    Obx(
+                      () => ElevatedButton(
+                        onPressed: controller.isLoading.value
+                            ? null
+                            : controller.login,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusGeometry.circular(12),
                           ),
+                          elevation: 2,
+                          minimumSize: Size(double.infinity, 50),
+                          padding: EdgeInsets.symmetric(vertical: 15),
                         ),
+                        child: controller.isLoading.value
+                            ? SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.white,
+                                  ),
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : Text(
+                                'Login',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                       ),
                     ),
                   ],
