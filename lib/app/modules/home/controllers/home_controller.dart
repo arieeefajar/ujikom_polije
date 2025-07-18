@@ -1,23 +1,23 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
-
-  final count = 0.obs;
+  final RxInt curretIndex = 0.obs;
   @override
   void onInit() {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  final List<Widget> pages = [
+    const Center(
+      child: Text(
+        'Selamat Datang',
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      ),
+    ),
+  ];
 
-  @override
-  void onClose() {
-    super.onClose();
+  void changePage(int index) {
+    curretIndex.value = index;
   }
-
-  void increment() => count.value++;
 }
