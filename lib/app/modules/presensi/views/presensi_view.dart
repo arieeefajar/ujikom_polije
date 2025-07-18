@@ -41,6 +41,18 @@ class PresensiView extends GetView<PresensiController> {
                 urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                 userAgentPackageName: 'com.example.ujikom_polije',
               ),
+              CircleLayer(
+                circles: [
+                  CircleMarker(
+                    point: controller.schoolLocation,
+                    color: Color.fromRGBO(0, 128, 0, 0.5),
+                    borderStrokeWidth: 2,
+                    borderColor: Colors.green,
+                    radius: 100,
+                    useRadiusInMeter: true,
+                  ),
+                ],
+              ),
               PopupMarkerLayer(
                 options: PopupMarkerLayerOptions(
                   markers: controller.markers.toList(),
