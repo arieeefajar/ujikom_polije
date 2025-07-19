@@ -22,6 +22,12 @@ class RiwayatPresensiProvider extends GetConnect {
   }
 
   Future<Response> getRiwayatPresensi() async {
+    final response = await get(
+      '/presensi-history',
+      headers: await _getHeaders(),
+    );
+
+    print(response.body);
     return await get('/presensi-history', headers: await _getHeaders());
   }
 }

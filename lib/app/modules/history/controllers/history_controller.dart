@@ -26,6 +26,7 @@ class HistoryController extends GetxController {
         Get.snackbar("Error", response.body['message'] ?? "Gagal memuat data");
       }
     } catch (e) {
+      print(e);
       Get.snackbar("Error", "Terjadi kesalahan: $e");
     } finally {
       isLoading.value = false;

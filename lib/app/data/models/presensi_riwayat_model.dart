@@ -12,7 +12,7 @@ class PresensiRiwayatModel {
   factory PresensiRiwayatModel.fromJson(Map<String, dynamic> json) {
     return PresensiRiwayatModel(
       tanggal: json['tanggal'],
-      jam: json['Jam'],
+      jam: json['jam_presensi'],
       status: json['status'],
     );
   }
