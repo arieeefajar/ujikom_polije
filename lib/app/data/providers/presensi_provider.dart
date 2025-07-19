@@ -20,6 +20,10 @@ class PresensiProvider extends GetConnect {
     };
   }
 
+  Future<Response> getStatusHariIni() async {
+    return await get('/presensi-hari-ini', headers: await _getHeaders());
+  }
+
   Future<Response> presensiHadir() async {
     return await post('/presensi-hadir', {}, headers: await _getHeaders());
   }
