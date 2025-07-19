@@ -1,9 +1,13 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:ujikom_polije/app/data/providers/auth_provider.dart';
 import 'package:ujikom_polije/app/data/providers/presensi_provider.dart';
 import 'package:ujikom_polije/app/modules/history/views/history_view.dart';
 import 'package:ujikom_polije/app/modules/home/views/dashboard_view.dart';
+import 'package:ujikom_polije/app/modules/login/controllers/login_controller.dart';
 import 'package:ujikom_polije/app/modules/presensi/views/presensi_view.dart';
+import 'package:ujikom_polije/app/routes/app_pages.dart';
 
 class HomeController extends GetxController {
   // Existing properties
@@ -14,7 +18,9 @@ class HomeController extends GetxController {
     const PresensiView(),
     const HistoryView(),
   ];
+  final storage = GetStorage();
   final presensiProvider = Get.find<PresensiProvider>();
+  final authProvider = Get.find<AuthProvider>();
 
   // Dashboard properties
   final currentTime = DateTime.now().obs;
@@ -213,17 +219,29 @@ class HomeController extends GetxController {
   }
 
   // Logout functionality
-  void _performLogout() {
-    Get.snackbar(
-      'Logout',
-      'Anda telah keluar dari aplikasi',
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.red.shade100,
-      colorText: Colors.red.shade800,
-    );
+  void _performLogout() async {
+    try {
+      final response = await authProvider.logout();
 
-    // Example: Navigate to login page
-    // Get.offAllNamed('/login');
+      if (response.statusCode == 200 && response.body['success'] == true) {
+        storage.erase();
+        if (Get.isRegistered<LoginController>()) {
+          Get.delete<LoginController>();
+        }
+        Get.offAllNamed(Routes.LOGIN);
+        Get.snackbar(
+          'Sukses',
+          response.body['message'] ?? 'Logout berhasil',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green.shade100,
+          colorText: Colors.green.shade800,
+        );
+      } else {
+        Get.snackbar('Gagal', 'Gagal logout. Silakan coba lagi.');
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'Terjadi kesalahan: $e');
+    }
   }
 
   void refreshAttendanceStatus() {

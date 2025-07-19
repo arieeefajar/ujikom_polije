@@ -162,7 +162,7 @@ class HomeView extends GetView<HomeController> {
                       size: controller.curretIndex.value == 0 ? 26 : 24,
                     ),
                   ),
-                  label: 'Home',
+                  label: 'Dashboard',
                 ),
                 BottomNavigationBarItem(
                   icon: Container(
