@@ -25,7 +25,10 @@ class HomeView extends GetView<HomeController> {
               icon: Icon(Icons.access_time),
               label: 'Presensi',
             ),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.history),
+              label: 'Riwayat',
+            ),
           ],
         ),
       ),
