@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:ujikom_polije/app/data/models/Auth/login_request_model.dart';
 import 'package:ujikom_polije/app/data/providers/auth_provider.dart';
 import 'package:ujikom_polije/app/routes/app_pages.dart';
@@ -10,6 +10,7 @@ class LoginController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final storage = GetStorage();
 
   var isPasswordVisible = false.obs;
   var isLoading = false.obs;
@@ -58,6 +59,9 @@ class LoginController extends GetxController {
         final response = await authProvider.login(loginRequest);
 
         if (response != null && response.status) {
+          storage.write('token', response.token);
+          storage.write('user', response.user);
+
           Get.snackbar(
             'Success',
             response.message,

@@ -3,11 +3,16 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:ujikom_polije/app/data/models/user_model.dart';
 
 class PresensiController extends GetxController {
   late MapController mapController;
   final popUpController = PopupController();
+  final storage = GetStorage();
+  late String token;
+  late UserModel userMap;
 
   final Rx<LatLng> currentLocation = LatLng(
     -8.157572767586283,
@@ -21,6 +26,8 @@ class PresensiController extends GetxController {
   void onInit() {
     super.onInit();
     mapController = MapController();
+    token = storage.read('token');
+    userMap = storage.read('user');
     getCurretLocation();
   }
 
