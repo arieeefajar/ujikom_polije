@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ujikom_polije/app/modules/presensi/views/presensi_view.dart';
 
 class HomeController extends GetxController {
   final RxInt curretIndex = 0.obs;
@@ -15,6 +16,7 @@ class HomeController extends GetxController {
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
     ),
+    PresensiView(),
   ];
 
   void changePage(int index) {
