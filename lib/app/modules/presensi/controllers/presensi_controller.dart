@@ -159,7 +159,10 @@ class PresensiController extends GetxController {
           showSnackbar("Gagal", body['message'] ?? "Gagal melakukan presensi");
         }
       } else {
-        showSnackbar("Error", "Terjadi kesalahan server");
+        showSnackbar(
+          "Error",
+          response.body['message'] ?? "Terjadi kesalahan server",
+        );
       }
     } catch (e) {
       showSnackbar("Error", "Gagal melakukan presensi: $e");
@@ -184,13 +187,16 @@ class PresensiController extends GetxController {
           showSnackbar(
             "Berhasil",
             body['message'] ?? "Izin berhasil",
-            backgroundColor: Colors.orange,
+            backgroundColor: Colors.green,
           );
         } else {
           showSnackbar("Gagal", body['message'] ?? "Gagal mengirim izin");
         }
       } else {
-        showSnackbar("Error", "Terjadi kesalahan server");
+        showSnackbar(
+          "Error",
+          response.body['message'] ?? "Terjadi kesalahan server",
+        );
       }
     } catch (e) {
       showSnackbar("Error", "Gagal mengirim izin: $e");
@@ -208,7 +214,7 @@ class PresensiController extends GetxController {
         content: TextField(
           controller: alasanController,
           decoration: const InputDecoration(hintText: 'Masukkan alasan izin'),
-          maxLines: 3,
+          maxLines: 1,
         ),
         actions: [
           TextButton(onPressed: () => Get.back(), child: const Text('Batal')),
