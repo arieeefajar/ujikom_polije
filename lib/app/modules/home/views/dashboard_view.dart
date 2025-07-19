@@ -36,8 +36,8 @@ class DashboardView extends GetView {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Selamat Datang!',
+                Text(
+                  'Hallo, ${controller.getGreeting()}',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,

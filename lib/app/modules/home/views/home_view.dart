@@ -10,45 +10,109 @@ class HomeView extends GetView<HomeController> {
     return Obx(
       () => Scaffold(
         backgroundColor: Colors.grey[50],
-        appBar: AppBar(
-          title: Text(
-            controller.pagesName[controller.curretIndex.value].toString(),
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          backgroundColor: Colors.blue.shade600,
-          elevation: 0,
-          actions: [
-            PopupMenuButton<String>(
-              onSelected: controller.onProfileMenuSelected,
-              icon: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.white.withAlpha(50),
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                child: const Icon(Icons.person, color: Colors.white, size: 24),
+        body: Column(
+          children: [
+            // Modern Header
+            Container(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top + 20,
+                left: 20,
+                right: 20,
+                bottom: 20,
               ),
-              itemBuilder: (BuildContext context) => [
-                const PopupMenuItem<String>(
-                  value: 'logout',
-                  child: Row(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.blue.shade600, Colors.blue.shade800],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(24),
+                  bottomRight: Radius.circular(24),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(Icons.logout, color: Colors.red),
-                      SizedBox(width: 12),
-                      Text('Logout', style: TextStyle(color: Colors.red)),
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withAlpha(50),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Icon(
+                              controller.getIconForPage(
+                                controller.curretIndex.value,
+                              ),
+                              color: Colors.white,
+                              size: 24,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            controller.pagesName[controller.curretIndex.value]
+                                .toString(),
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                      // PopupMenuButton
+                      PopupMenuButton<String>(
+                        onSelected: controller.onProfileMenuSelected,
+                        icon: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withAlpha(50),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: const Icon(
+                            Icons.person,
+                            color: Colors.white,
+                            size: 24,
+                          ),
+                        ),
+                        itemBuilder: (BuildContext context) => [
+                          const PopupMenuItem<String>(
+                            value: 'logout',
+                            child: Row(
+                              children: [
+                                Icon(Icons.logout, color: Colors.red),
+                                SizedBox(width: 12),
+                                Text(
+                                  'Logout',
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
-                ),
-              ],
+                  const SizedBox(height: 8),
+                  Text(
+                    controller.getSubtitleForPage(controller.curretIndex.value),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white.withAlpha(200),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(width: 16),
+            // Page Content
+            Expanded(child: controller.pages[controller.curretIndex.value]),
           ],
         ),
-        body: controller.pages[controller.curretIndex.value],
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             color: Colors.white,

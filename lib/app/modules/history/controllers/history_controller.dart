@@ -26,10 +26,42 @@ class HistoryController extends GetxController {
         Get.snackbar("Error", response.body['message'] ?? "Gagal memuat data");
       }
     } catch (e) {
-      print(e);
       Get.snackbar("Error", "Terjadi kesalahan: $e");
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  String formatDate(String date) {
+    try {
+      final DateTime dateTime = DateTime.parse(date);
+      final List<String> months = [
+        'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember',
+      ];
+      final List<String> days = [
+        'Minggu',
+        'Senin',
+        'Selasa',
+        'Rabu',
+        'Kamis',
+        'Jumat',
+        'Sabtu',
+      ];
+
+      return '${days[dateTime.weekday % 7]}, ${dateTime.day} ${months[dateTime.month - 1]} ${dateTime.year}';
+    } catch (e) {
+      return date; // Return original date if parsing fails
     }
   }
 }

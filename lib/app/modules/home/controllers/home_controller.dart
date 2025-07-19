@@ -94,10 +94,50 @@ class HomeController extends GetxController {
     return '${days[now.weekday % 7]}, ${now.day} ${months[now.month - 1]} ${now.year}';
   }
 
+  String getGreeting() {
+    final hour = DateTime.now().hour;
+
+    if (hour >= 5 && hour < 11) {
+      return 'Selamat Pagi';
+    } else if (hour >= 11 && hour < 15) {
+      return 'Selamat Siang';
+    } else if (hour >= 15 && hour < 18) {
+      return 'Selamat Sore';
+    } else {
+      return 'Selamat Malam';
+    }
+  }
+
   String getFormattedTime() {
     return '${currentTime.value.hour.toString().padLeft(2, '0')}:'
         '${currentTime.value.minute.toString().padLeft(2, '0')}:'
         '${currentTime.value.second.toString().padLeft(2, '0')}';
+  }
+
+  IconData getIconForPage(int index) {
+    switch (index) {
+      case 0:
+        return Icons.dashboard_rounded;
+      case 1:
+        return Icons.access_time_rounded;
+      case 2:
+        return Icons.history_rounded;
+      default:
+        return Icons.dashboard_rounded;
+    }
+  }
+
+  String getSubtitleForPage(int index) {
+    switch (index) {
+      case 0:
+        return 'Selamat datang di dashboard utama';
+      case 1:
+        return 'Catat kehadiran Anda hari ini';
+      case 2:
+        return 'Lihat catatan kehadiran Anda';
+      default:
+        return 'Selamat datang';
+    }
   }
 
   // Attendance status check
