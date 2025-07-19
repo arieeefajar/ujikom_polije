@@ -101,30 +101,81 @@ class PresensiView extends GetView<PresensiController> {
                       backgroundColor: Colors.blue,
                       child: const Icon(Icons.my_location),
                     ),
-                    ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: isWithinRadius
-                            ? Colors.green
-                            : Colors.red,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 12,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: isWithinRadius
+                                ? Colors.green
+                                : Colors.grey,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 12,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          onPressed: isWithinRadius
+                              ? controller.presensiHadir
+                              : null,
+                          icon: const Icon(
+                            Icons.fingerprint,
+                            color: Colors.white,
+                          ),
+                          label: const Text(
+                            'Presensi Hadir',
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.orange,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 12,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          onPressed: () => controller.showIzinDialog(context),
+                          icon: const Icon(
+                            Icons.edit_note,
+                            color: Colors.white,
+                          ),
+                          label: const Text(
+                            'Ajukan Izin',
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
-                      ),
-                      onPressed: isWithinRadius
-                          ? () {
-                              print('Presensi Berhasil');
-                            }
-                          : null,
-                      label: const Text(
-                        'Presensi',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      icon: const Icon(Icons.fingerprint, color: Colors.white),
+                      ],
                     ),
+                    // ElevatedButton.icon(
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: isWithinRadius
+                    //         ? Colors.green
+                    //         : Colors.red,
+                    //     padding: const EdgeInsets.symmetric(
+                    //       horizontal: 20,
+                    //       vertical: 12,
+                    //     ),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(12),
+                    //     ),
+                    //   ),
+                    //   onPressed: isWithinRadius
+                    //       ? () {
+                    //           print('Presensi Berhasil');
+                    //         }
+                    //       : null,
+                    //   label: const Text(
+                    //     'Presensi',
+                    //     style: TextStyle(color: Colors.white),
+                    //   ),
+                    //   icon: const Icon(Icons.fingerprint, color: Colors.white),
+                    // ),
                   ],
                 ),
                 const SizedBox(height: 16),
